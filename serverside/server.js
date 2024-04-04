@@ -45,8 +45,13 @@ mongoose.connect(mongoUrl, {
     });
   });
 
-  app.get('/', async (req, res) => {
-    var allQuotes = await QuoteModel.find()
-  })
-  export var  allQuotes 
+  app.get('/api/quote', async (req, res) => {
+    try {
+      const allQuotes = await QuoteModel.find();
+      res.status(200).json(allQuotes);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching quotes');
+    }
+  });
 
